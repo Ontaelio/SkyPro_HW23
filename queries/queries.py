@@ -1,3 +1,6 @@
+import re
+
+
 def filter_query(param, data):
     return list(filter(lambda l: param in l, data))
 
@@ -31,6 +34,11 @@ def limit_query(param, data):
     return data[:int(param)]
 
 
+def regex_query(param, data):
+    qre = re.compile(param)
+    return list(filter(lambda l: qre.search(l), data))
+
+
 # here be tests
 
 if __name__ == '__main__':
@@ -44,3 +52,5 @@ if __name__ == '__main__':
     print(filter_not_query('123', ['123 42 566 JSHDJ ADD', 'ewhjkdwq 43242 dhjdjsahd']))
     print(filter_or_query('ZYZZY ADD 42', ['123 42 566 JSHDJ ADD', 'ewhjkdwq 43242 dhjdjsahd']))
     print(filter_and_query('ADD 42', ['123 42 566 JSHDJ ADD', 'ewhjkdwq 43242 dhjdjsahd']))
+
+    print(regex_query('566', ['123 42 566 JSHDJ ADD', 'ewhjkdwq 43242 dhjdjsahd']))
