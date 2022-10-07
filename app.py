@@ -1,4 +1,6 @@
-from flask import Flask, request, jsonify
+from typing import Tuple, Optional, Dict
+
+from flask import Flask, request, jsonify, Response
 
 from utils import parse_request, get_data, check_queries, run_queries
 
@@ -7,7 +9,7 @@ app.config['JSON_AS_ASCII'] = False
 
 
 @app.route('/perform_query', methods=['POST'])
-def perform_query():
+def perform_query() -> Tuple[Response, int]:
 
     fname, req = parse_request(request.get_json())
 
@@ -28,4 +30,4 @@ def perform_query():
     except:
         return jsonify('Error while processing request; wrong value?'), 400
 
-    return jsonify(data)
+    return jsonify(data), 200
