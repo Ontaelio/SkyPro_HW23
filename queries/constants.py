@@ -1,6 +1,8 @@
+from typing import Callable, Dict
+
 import queries.queries as queries
 
-QUERIES = {
+QUERIES: Dict[str, Callable] = {
     'filter': queries.filter_query,
     'map': queries.map_query,
     'unique': queries.unique_query,
